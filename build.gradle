@@ -1,0 +1,39 @@
+plugins {
+    id 'scala'
+    id 'java-library'
+}
+
+group 'com.dyerus.bigdata'
+version '1.0.0'
+
+sourceCompatibility = 1.8
+
+ext {
+    scalaVersion = '2.11.12'
+    scalaCompatVersion = '2.11'
+
+    spark = [
+            core: "org.apache.spark:spark-core_${scalaCompatVersion}:2.4.4",
+            sql: "org.apache.spark:spark-sql_${scalaCompatVersion}:2.4.4"
+    ]
+}
+
+dependencies {
+    implementation(
+            //
+            "org.scala-lang:scala-library:${scalaVersion}"
+    )
+
+    testImplementation(
+            "org.scalatest:scalatest_${scalaCompatVersion}:3.2.0-M4"
+    )
+}
+
+allprojects {
+    apply plugin: 'scala'
+    apply plugin: 'java-library'
+
+    repositories {
+        mavenCentral()
+    }
+}

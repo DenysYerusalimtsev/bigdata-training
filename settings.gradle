@@ -1,0 +1,3 @@
+rootProject.name = 'big-data-training'
+
+include 'spark-core'
