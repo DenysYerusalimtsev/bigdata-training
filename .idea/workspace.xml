@@ -2,18 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="45371107-ef41-4c04-8c2d-b809bddb65ee" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spark-core/build/classes/scala/main/com/dyerus/bigdata/sparkcore/SparkCoreApplication$.class" beforeDir="false" afterPath="$PROJECT_DIR$/spark-core/build/classes/scala/main/com/dyerus/bigdata/sparkcore/SparkCoreApplication$.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spark-core/build/classes/scala/main/com/dyerus/bigdata/sparkcore/SparkCoreApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/spark-core/build/classes/scala/main/com/dyerus/bigdata/sparkcore/SparkCoreApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spark-core/build/tmp/scala/compilerAnalysis/compileScala.analysis" beforeDir="false" afterPath="$PROJECT_DIR$/spark-core/build/tmp/scala/compilerAnalysis/compileScala.analysis" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spark-core/src/main/scala/com/dyerus/bigdata/sparkcore/SparkCoreApplication.scala" beforeDir="false" afterPath="$PROJECT_DIR$/spark-core/src/main/scala/com/dyerus/bigdata/sparkcore/SparkCoreApplication.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
