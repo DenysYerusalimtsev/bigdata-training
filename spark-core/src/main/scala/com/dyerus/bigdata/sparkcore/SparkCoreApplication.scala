@@ -1,6 +1,6 @@
 package com.dyerus.bigdata.sparkcore
 
-import com.dyerus.bigdata.sparkcore.tasks.{LongestSurnameStartsWithR, PassengerLocation}
+import com.dyerus.bigdata.sparkcore.tasks.{LongestSurnameStartsWithR, PassengerLocation, RwyStatistic, SumByRwySfcType}
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.{DataFrame, SparkSession}
 
@@ -23,4 +23,6 @@ object SparkCoreApplication extends App {
     .map(s => s.split(","))
 
   LongestSurnameStartsWithR.findLongestSurname(ndhubAirportFile)
+  RwyStatistic.calculateStatistic(ndhubAirportFile)
+  SumByRwySfcType.calculateRwySumByTypes(ndhubAirportFile)
 }
