@@ -17,7 +17,9 @@ object RwyStatistic {
 
   private def calculateAvg(rdd: RDD[RwyLen]): Double = calculateSum(rdd) / rdd.count()
 
-  private def findMax(rdd: RDD[RwyLen]): String = rdd.max.rwyLen
+  private implicit val ordering: Ordering[RwyLen] = Ordering[Double].on(x => x.rwyLen)
 
-  private def findMin(rdd: RDD[RwyLen]): String = rdd.min.rwyLen
+  private def findMax(rdd: RDD[RwyLen]): RwyLen = rdd.max()
+
+  private def findMin(rdd: RDD[RwyLen]): RwyLen = rdd.min()
 }

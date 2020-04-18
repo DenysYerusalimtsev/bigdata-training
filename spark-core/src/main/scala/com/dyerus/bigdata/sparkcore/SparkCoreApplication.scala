@@ -1,6 +1,6 @@
 package com.dyerus.bigdata.sparkcore
 
-import com.dyerus.bigdata.sparkcore.tasks.{LongestSurnameStartsWithR, PassengerLocation, RwyStatistic, SumByRwySfcType}
+import com.dyerus.bigdata.sparkcore.tasks.{LongestSurnameStartsWithR, MergeTwoRdd, PassengerLocation, RwyStatistic, SumByRwySfcType}
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.{DataFrame, SparkSession}
 
@@ -22,7 +22,12 @@ object SparkCoreApplication extends App {
     .textFile("C:\\Users\\Denis.Yerusalimtsev\\Downloads\\NDHUB.AirportRunways.csv")
     .map(s => s.split(","))
 
-  LongestSurnameStartsWithR.findLongestSurname(ndhubAirportFile)
-  RwyStatistic.calculateStatistic(ndhubAirportFile)
+  val loudounAirportImpact: RDD[Array[String]] = spark.sparkContext
+    .textFile("C:\\Users\\Denis.Yerusalimtsev\\Downloads\\Loudoun_Airport_Impact_Overlay_Districts.csv")
+    .map(s => s.split(","))
+
+  //LongestSurnameStartsWithR.findLongestSurname(ndhubAirportFile)
   SumByRwySfcType.calculateRwySumByTypes(ndhubAirportFile)
+  /*RwyStatistic.calculateStatistic(ndhubAirportFile)
+  MergeTwoRdd.mergeById(ndhubAirportFile, loudounAirportImpact)*/
 }
