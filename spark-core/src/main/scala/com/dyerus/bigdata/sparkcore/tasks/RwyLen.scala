@@ -1,3 +1,3 @@
 package com.dyerus.bigdata.sparkcore.tasks
 
-case class RwyLen(rwyLen: Int)
+case class RwyLen(rwyLen: Double)
