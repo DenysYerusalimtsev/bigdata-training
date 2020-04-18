@@ -3,7 +3,7 @@ package com.dyerus.bigdata.sparkcore.tasks
 import org.apache.spark.rdd.RDD
 
 object MergeTwoRdd {
-  def mergeById(ndHubRdd: RDD[Array[String]], loudounAirportImpact: RDD[Array[String]]): Unit = {
+  def mergeById(ndHubRdd: RDD[Array[String]], loudounAirportImpact: RDD[Array[String]]): RDD[(Int, (AirportRunaway, AirportImpactOverlay))] = {
     val airportRunawayRdd = ndHubRdd.map(item => AirportRunaway(
       id = item(0).toInt,
       locId = item(1),
@@ -25,5 +25,6 @@ object MergeTwoRdd {
     val joined: RDD[(Int, (AirportRunaway, AirportImpactOverlay))] =
       airportRunawayPaired.join(loudounAirportImpactPaired)
 
+    joined
   }
 }
