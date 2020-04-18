@@ -27,7 +27,7 @@ object SumByRwySfcType {
     val sum: RDD[(String, Double)] = rdd
       .filter(f => rwyTypesLower.contains(f.rwyType.toLowerCase))
       .map(rwy => (rwy.rwyType, rwy.rwyLen))
-      .reduceByKey((first, second) => first + second)
+      .reduceByKey(_ + _)
 
     sum
   }
