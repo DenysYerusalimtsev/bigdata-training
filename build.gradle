@@ -25,7 +25,8 @@ dependencies {
     )
 
     testImplementation(
-            "org.scalatest:scalatest_${scalaCompatVersion}:3.2.0-M4"
+            "org.scalatest:scalatest_${scalaCompatVersion}:3.2.0-M4",
+            "com.holdenkarau:spark-testing-base_${scalaCompatVersion}:2.4.4_0.14.0"
     )
 }
 
