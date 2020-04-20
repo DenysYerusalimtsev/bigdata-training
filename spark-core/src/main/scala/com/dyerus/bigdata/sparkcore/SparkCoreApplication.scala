@@ -29,7 +29,9 @@ object SparkCoreApplication extends App {
     .map(s => s.split(","))
     .skipHeader
 
-  LongestSurnameStartsWithR.findLongestSurname(ndhubAirportFile)
+  val longestSurname = LongestSurnameStartsWithR.findLongestSurname(ndhubAirportFile)
+  println(longestSurname)
+
   SumByRwySfcType.calculateRwySumByTypes(ndhubAirportFile)
   RwyStatistic.calculateStatistic(ndhubAirportFile)
 

@@ -3,23 +3,22 @@ package com.dyerus.bigdata.sparkcore.tasks
 import org.apache.spark.rdd.RDD
 
 object LongestSurnameStartsWithR {
-  def findLongestSurname(ndHubRdd: RDD[Array[String]]): Unit = {
+  def findLongestSurname(ndHubRdd: RDD[Array[String]]): String = {
     val passengers: RDD[PassengerLocation] = ndHubRdd.map(f =>
       PassengerLocation(
         locationId = f(1),
         fullName = f(3)))
 
-    val passengersWithR = passengers.filter(f => f.fullName.startsWith("R"))
-    val longestR = findLongestSurname(passengersWithR)
-    println(longestR)
+    passengers.aggregate("")(
+      (longest, person) => compare(longest, person.fullName),
+      (longest, current) => compare(longest, current))
   }
 
-  private def findLongestSurname(rdd: RDD[PassengerLocation]): String = {
-    val comparator = (first: String, second: String) =>
-      if (first.length > second.length) first else second
+  private def compare(first: String, second: String): String = {
+    val startsWithR = (s: String) => s.startsWith("R")
 
-    rdd.aggregate("")(
-      (longest, person) => comparator(longest, person.fullName),
-      (longest, current) => comparator(longest, current))
+    if (startsWithR(first) && !startsWithR(second)) first
+    else if (!startsWithR(first) && startsWithR(second)) second
+    else if (first.length > second.length) first else second
   }
 }

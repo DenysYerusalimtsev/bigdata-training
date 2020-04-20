@@ -18,23 +18,28 @@ ext {
     ]
 }
 
-dependencies {
-    implementation(
-            //
-            "org.scala-lang:scala-library:${scalaVersion}"
-    )
-
-    testImplementation(
-            "org.scalatest:scalatest_${scalaCompatVersion}:3.2.0-M4",
-            "com.holdenkarau:spark-testing-base_${scalaCompatVersion}:2.4.4_0.14.0"
-    )
-}
-
 allprojects {
     apply plugin: 'scala'
     apply plugin: 'java-library'
 
     repositories {
         mavenCentral()
+    }
+
+    dependencies {
+        implementation(
+                "org.scala-lang:scala-library:${scalaVersion}"
+        )
+
+        testImplementation(
+                "junit:junit:4.12",
+                "org.scalatestplus:scalatestplus-junit_${scalaCompatVersion}:1.0.0-M2",
+                "org.mockito:mockito-scala_${scalaCompatVersion}:1.10.6",
+                "com.holdenkarau:spark-testing-base_${scalaCompatVersion}:2.4.4_0.14.0"
+        )
+
+        testImplementation("org.scalatest:scalatest_${scalaCompatVersion}:3.0.1") {
+            force(true)
+        }
     }
 }
