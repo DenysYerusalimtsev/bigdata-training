@@ -5,7 +5,7 @@ import org.apache.spark.rdd.RDD
 import scala.util.Try
 
 object SumByRwySfcType {
-  def calculateRwySumByTypes(ndHubRdd: RDD[Array[String]]): Unit = {
+  def calculateRwySumByTypes(ndHubRdd: RDD[Array[String]]): RDD[RwySumByType] = {
     val rwyRdd: RDD[RwyLenSfcTy] = ndHubRdd
       .map(f => {
         val len: Double = Try(f(7).toDouble).getOrElse(0)
@@ -19,9 +19,11 @@ object SumByRwySfcType {
 
     println(s"${SumByRwySfcType.getClass.getSimpleName} finished with result:")
     sum.foreach(println)
+
+    sum
   }
 
-  private def sumByType(rdd: RDD[RwyLenSfcTy], rwyTypes: Seq[String]): RDD[(String, Double)] = {
+  private def sumByType(rdd: RDD[RwyLenSfcTy], rwyTypes: Seq[String]): RDD[RwySumByType] = {
     val rwyTypesLower: Seq[String] = rwyTypes.map(_.toLowerCase)
 
     val sum: RDD[(String, Double)] = rdd
@@ -29,6 +31,6 @@ object SumByRwySfcType {
       .map(rwy => (rwy.rwyType, rwy.rwyLen))
       .reduceByKey(_ + _)
 
-    sum
+    sum.map(s => RwySumByType(s._1, s._2))
   }
 }
