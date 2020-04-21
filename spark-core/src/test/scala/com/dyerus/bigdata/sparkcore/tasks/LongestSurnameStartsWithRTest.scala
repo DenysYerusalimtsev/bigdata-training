@@ -19,6 +19,20 @@ class LongestSurnameStartsWithRTest extends BaseTest {
     actual shouldBe expected
   }
 
+  it should "return the longest surname starts with R in RDD" in {
+    val surnames = List(
+      Array("first", "first", "first", "first"),
+      Array("second", "second", "second", "second"),
+      Array("richard", "richard", "richard", "richard")
+    )
+    val input = sc.parallelize(surnames)
+    val expected = "richard"
+
+    val actual = LongestSurnameStartsWithR.findLongestSurname(input)
+
+    actual shouldBe expected
+  }
+
   it should "return empty string if input RDD is empty" in {
     val surnames: List[Array[String]] = List()
     val input = sc.parallelize(surnames)

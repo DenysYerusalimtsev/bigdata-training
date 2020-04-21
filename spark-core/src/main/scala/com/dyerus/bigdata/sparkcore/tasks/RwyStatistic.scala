@@ -5,7 +5,7 @@ import org.apache.spark.rdd.RDD
 import scala.util.Try
 
 object RwyStatistic {
-  def calculateStatistic(ndHubRdd: RDD[Array[String]]): Unit = {
+  def calculateStatistic(ndHubRdd: RDD[Array[String]]): FullRwyStatistic = {
     val rwyLenRdd: RDD[RwyLen] = ndHubRdd.map(f => {
       val len: Double = Try(f(7).toDouble).getOrElse(0)
       RwyLen(rwyLen = len)
@@ -14,8 +14,14 @@ object RwyStatistic {
     println(s"${RwyStatistic.getClass.getSimpleName} finished with result:")
     println(s"sum ${calculateSum(rwyLenRdd)}")
     println(s"avg ${calculateAvg(rwyLenRdd)}")
-    println(s"max ${findMax(rwyLenRdd)}")
-    println(s"min ${findMin(rwyLenRdd)}")
+    println(s"max ${findMax(rwyLenRdd).rwyLen}")
+    println(s"min ${findMin(rwyLenRdd).rwyLen}")
+
+    FullRwyStatistic(
+      calculateSum(rwyLenRdd),
+      calculateAvg(rwyLenRdd),
+      findMin(rwyLenRdd).rwyLen,
+      findMax(rwyLenRdd).rwyLen)
   }
 
   private def calculateSum(rdd: RDD[RwyLen]): Double = rdd.map(_.rwyLen).sum()
