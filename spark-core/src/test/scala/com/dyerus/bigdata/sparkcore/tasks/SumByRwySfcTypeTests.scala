@@ -23,7 +23,7 @@ class SumByRwySfcTypeTests extends BaseTest {
     val actual: RDD[RwySumByType] = SumByRwySfcType.calculateRwySumByTypes(input)
 
     actual.count shouldBe expected.count
-    actual.take(0) shouldBe expected.take(0)
-    actual.take(1) shouldBe expected.take(1)
+    actual.take(0) shouldEqual  expected.take(0)
+    actual.take(1) shouldEqual expected.take(1)
   }
 }
