@@ -32,5 +32,5 @@ object RwyStatistic {
 
   private def findMax(rdd: RDD[RwyLen]): RwyLen = rdd.max()
 
-  private def findMin(rdd: RDD[RwyLen]): RwyLen = rdd.filter(_.rwyLen > 0).min()
+  private def findMin(rdd: RDD[RwyLen]): RwyLen = rdd.filter(_.rwyLen >= 0).min()
 }
