@@ -4,14 +4,15 @@ import com.dyerus.bigdata.sparkcore.tasks._
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.{DataFrame, SparkSession}
 
-object SparkCoreApplication extends App {
-  System.setProperty("hadoop.home.dir", "C:\\Users\\Denis.Yerusalimtsev\\Downloads")
+object SparkCoreApplication extends App with SparkSetup {
 
   val spark = SparkSession.builder()
     .appName("test")
     .master("local[*]")
     .config("spark.driver.bindAddress", "127.0.0.1")
     .getOrCreate()
+
+  spark.sparkContext.setLogLevel("WARN")
   /*
     val df: DataFrame = spark.read.format("csv")
       .option("header", "true")

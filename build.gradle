@@ -14,7 +14,9 @@ ext {
 
     spark = [
             core: "org.apache.spark:spark-core_${scalaCompatVersion}:2.4.4",
-            sql: "org.apache.spark:spark-sql_${scalaCompatVersion}:2.4.4"
+            sql: "org.apache.spark:spark-sql_${scalaCompatVersion}:2.4.4",
+            kafka: "org.apache.spark:spark-sql-kafka-0-10_${scalaCompatVersion}:2.4.5",
+            elasticsearch: "org.elasticsearch:elasticsearch-spark_${scalaCompatVersion}:2.4.4"
     ]
 }
 

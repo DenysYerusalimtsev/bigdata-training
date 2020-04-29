@@ -1,0 +1,9 @@
+dependencies {
+    implementation(
+            spark.core,
+            spark.sql,
+            spark.kafka,
+            spark.elasticsearch,
+            project(":spark-core")
+    )
+}
