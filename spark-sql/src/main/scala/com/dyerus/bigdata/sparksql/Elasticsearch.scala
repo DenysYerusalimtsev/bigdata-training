@@ -5,9 +5,11 @@ import org.elasticsearch.spark.sql._
 
 trait Elasticsearch {
   def writeToElastic[T](ds: Dataset[T], index: String): Unit =
-    ds.toDF.saveToEs(index)
+    ds.writeStream
+      .option("checkpointLocation", "/save/location")
+      .format("es")
+      .start(index)
 
-  def readFromElastic[T](index: String)(implicit spark: SparkSession): Dataset[T] = {
-
+  def readFromElastic[T](index: String)(implicit spark: SparkSession): Unit = {
   }
 }

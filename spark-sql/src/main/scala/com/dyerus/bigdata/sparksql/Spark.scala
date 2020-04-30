@@ -8,6 +8,11 @@ trait Spark extends SparkSetup {
     .appName("test")
     .master("local[*]")
     .config("spark.driver.bindAddress", "127.0.0.1")
-    .config("", "")
+    .config("es.index.auto.create", "true")
+    .config("spark.es.nodes", "http://prismelastic.northcentralus.azurecontainer.io")
+    .config("spark.es.port", "9200")
+    .config("spark.es.nodes.wan.only", "true")
     .getOrCreate()
+
+  spark.sparkContext.setLogLevel("ERROR")
 }
