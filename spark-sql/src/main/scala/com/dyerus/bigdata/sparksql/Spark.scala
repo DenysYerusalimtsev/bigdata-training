@@ -14,5 +14,6 @@ trait Spark extends SparkSetup {
     .config("spark.es.nodes.wan.only", "true")
     .getOrCreate()
 
+
   spark.sparkContext.setLogLevel("ERROR")
 }
