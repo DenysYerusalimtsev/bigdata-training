@@ -11,20 +11,11 @@ trait Elasticsearch {
       .start(index)
 
   def readFromElastic[A <: Product : TypeTag](index: String)(implicit spark: SparkSession): Dataset[A] = {
-    import spark.implicits._
-
-    implicit val enc: Encoder[A] = Encoders.product[A]
-
-    val s = spark
+    spark
       .read
-      .format("org.elasticsearch.spark.sql")
+      .format("es")
       .option("es.read.field.as.array.include", "participatingCountries")
       .load(index)
-
-    s.printSchema()
-
-    s.limit(10).show()
-
-      s.as[A]
+      .as[A](Encoders.product[A])
   }
 }

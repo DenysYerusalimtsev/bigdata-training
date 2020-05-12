@@ -13,7 +13,8 @@ object WriteProjectToElastic extends Elasticsearch with Spark {
       .readStream
       .format("kafka")
       .option("kafka.bootstrap.servers", "localhost:9092")
-      .option("subscribe", "project_member_added")
+      .option("subscribe", "project_members_added")
+      .option("failOnDataLoss", "false")
       .load()
 
     val streamValue: DataFrame = df.selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)")
@@ -24,7 +25,9 @@ object WriteProjectToElastic extends Elasticsearch with Spark {
       .select("parsed.*")
       .as[Project]
 
-    writeToElastic(projectDs, "sparkprojects");
+    projectDs.printSchema
+
+    writeToElastic(projectDs, "projectspark");
 
     val query: StreamingQuery = projectDs.writeStream
       .outputMode("append")
