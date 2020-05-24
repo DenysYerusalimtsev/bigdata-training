@@ -1,11 +1,12 @@
 package com.dyerus.bigdata.sparksql.tasks
 
 import com.dyerus.bigdata.sparksql.{Elasticsearch, Spark}
-import org.apache.spark.sql._
-import org.apache.spark.sql.functions.{from_json, _}
+import org.apache.spark.sql.functions._
 import org.apache.spark.sql.streaming.StreamingQuery
+import org.apache.spark.sql.{DataFrame, Dataset, Encoders, SparkSession}
 
-object PrintProjectsWithYoungestEmployee extends Elasticsearch with Spark {
+object ProjectWithMostPeople extends Elasticsearch with Spark {
+
   def run()(implicit spark: SparkSession): StreamingQuery = {
     import spark.implicits._
 
@@ -28,26 +29,22 @@ object PrintProjectsWithYoungestEmployee extends Elasticsearch with Spark {
         .select(from_json($"value", schema) as "parsed", $"timestamp")
         .select("parsed.*", "timestamp")
         .withWatermark("timestamp", "10 seconds")
-        .groupBy(
-          //window($"timestamp", "1 seconds", "1 seconds"),
-          $"projectId")
- //       .as[ProjectMember]
+        .as[ProjectMember]
 
-//    val projects: Dataset[Project] = readFromElastic("projectspark")
-//
-//    val projectMembers: Dataset[ProjectMember] = readFromElastic("projectmembers")
-//
-//    val joinedProjectMembers: Dataset[ProjectMember] = projectMemberDs //.union(projectMembers)
-//
+    val projects: Dataset[Project] = readFromElastic("projectspark")
 
-    val groupedWithYoungest: DataFrame = projectMemberDs.agg(max("memberYearOfBirth"))
+    val joined: Dataset[ProjectMember] = projectMemberDs.joinWith(projects,
+      projectMemberDs("projectId") === projects("projectIdentifier"))
+      .map { case (m, _) => m }
 
-//    val joined: Dataset[(Project, ProjectMember)] = projects.joinWith(
-//      projectMemberDs,
-//      projectMemberDs("projectId") === projects("projectIdentifier"))
+    val grouped: Dataset[ProjectWithCount] = joined
+      .groupByKey(_.projectId)
+      .count()
+      .map { case (id, count) => ProjectWithCount(id, count) }
 
+    //val projectWithMostEmployees = grouped.agg(max("count"))
 
-    val query: StreamingQuery = groupedWithYoungest.writeStream
+    val query: StreamingQuery = grouped.writeStream
       .outputMode("complete")
       .format("console")
       .start()
@@ -55,3 +52,5 @@ object PrintProjectsWithYoungestEmployee extends Elasticsearch with Spark {
     query
   }
 }
+
+private case class ProjectWithCount(id: String, count: Long)

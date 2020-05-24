@@ -6,6 +6,7 @@ import org.apache.spark.sql.functions.from_json
 import org.apache.spark.sql.streaming.StreamingQuery
 
 object WriteProjectMemberToElastic extends Elasticsearch with Spark {
+
   def run()(implicit spark: SparkSession): StreamingQuery = {
     import spark.implicits._
 
@@ -16,7 +17,7 @@ object WriteProjectMemberToElastic extends Elasticsearch with Spark {
       .option("subscribe", "project_members_added")
       .load()
 
-    val streamValue: DataFrame = df.selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)")
+    val streamValue: DataFrame = df.selectExpr("CAST(key AS  STRING)", "CAST(value AS STRING)")
 
     val schema = Encoders.product[ProjectMember].schema
 
